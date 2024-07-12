@@ -23,6 +23,7 @@ jobs:
       - name: Build and Copy
         run: |
           pushd simple-chrono
+          mkdir -p ../juleslagarde.github.io/simple-chrono
           rsync -av --delete . ../juleslagarde.github.io/simple-chrono/
           popd
 
