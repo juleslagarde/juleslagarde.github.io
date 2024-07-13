@@ -22,7 +22,8 @@ jobs:
 
       - name: Clone simple-chrono
         run: |
-          git clone https://github.com/juleslagarde/simple-chrono.git
+          git clone --depth 1 https://github.com/juleslagarde/simple-chrono.git
+          rm -rf simple-chrono/.git
 
       - name: Build and Copy
         run: |
