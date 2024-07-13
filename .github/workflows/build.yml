@@ -9,10 +9,11 @@ jobs:
 
     steps:
       - name: Checkout juleslagarde.github.io
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: juleslagarde/juleslagarde.github.io
           path: juleslagarde.github.io
+          token: ${{secrets.token}}
       
       # - name: Set up Node.js
       #   uses: actions/setup-node@v2
