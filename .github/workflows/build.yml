@@ -13,22 +13,26 @@ jobs:
         with:
           repository: juleslagarde/juleslagarde.github.io
           path: juleslagarde.github.io
-          token: ${{secrets.token}}
+          token: ${{secrets.TOKEN}}
       
-      # - name: Set up Node.js
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: '14'  # Set Node.js version
-
+      - name: Prepare directory structure
+        run: mkdir -p out
+      
       - name: Clone simple-chrono
         run: |
+          cd out
           git clone --depth 1 https://github.com/juleslagarde/simple-chrono.git
           rm -rf simple-chrono/.git
 
-      - name: Build and Copy
+      - name: Clone web utils
         run: |
-          rsync -av --delete simple-chrono/ juleslagarde.github.io/simple-chrono/
-
+          cd out
+          git clone --depth 1 https://github.com/juleslagarde/singlefile-webutils.git utils
+          rm -rf utils/.git
+  
+      - name: Build and Copy
+        run: rsync -av --delete out/ juleslagarde.github.io/
+      
       - name: Commit and Push changes
         run: |
           cd juleslagarde.github.io
@@ -37,4 +41,3 @@ jobs:
           git add .
           git commit -m "Update projects folders" || echo "No changes to commit"
           git push
-
