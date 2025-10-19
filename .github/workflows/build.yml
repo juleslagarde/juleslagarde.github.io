@@ -23,6 +23,9 @@ jobs:
           pwd
           echo $GITHUB_WORKSPACE
           echo ${{ github.workspace }}
+          ls
+          echo ============
+          ls juleslagarde.github.io
       
       - name: Clone simple-chrono
         run: |
