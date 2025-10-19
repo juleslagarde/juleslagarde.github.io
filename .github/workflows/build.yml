@@ -40,7 +40,10 @@ jobs:
           rm -rf utils/.git
   
       - name: Build and Copy
-        run: rsync -av --delete out/ juleslagarde.github.io/
+        run: |
+          ls juleslagarde.github.io
+          rsync -av --delete out/ juleslagarde.github.io/
+          ls juleslagarde.github.io
       
       - name: Commit and Push changes
         run: |
