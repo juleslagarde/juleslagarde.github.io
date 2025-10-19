@@ -1,0 +1,52 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout juleslagarde.github.io
+        uses: actions/checkout@v3
+        with:
+          repository: juleslagarde/juleslagarde.github.io
+          path: juleslagarde.github.io
+          token: ${{secrets.TOKEN}}
+      
+      - name: Prepare directory structure
+        run: |
+          mkdir -p out
+          pwd
+          echo $GITHUB_WORKSPACE
+          echo ${{ github.workspace }}
+          ls
+          echo ============
+          ls juleslagarde.github.io
+      
+      - name: Clone simple-chrono
+        run: |
+          cd out
+          git clone --depth 1 https://github.com/juleslagarde/simple-chrono.git
+          rm -rf simple-chrono/.git
+
+      - name: Clone web utils
+        run: |
+          cd out
+          git clone --depth 1 https://github.com/juleslagarde/singlefile-webutils.git utils
+          rm -rf utils/.git
+  
+      - name: Build and Copy
+        run: rsync -av --delete --exclude='.git/' out/ juleslagarde.github.io/
+      
+      - name: Commit and Push changes
+        run: |
+          cd juleslagarde.github.io
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add .
+          git commit -m "Update projects folders" || echo "No changes to commit"
+          git push
