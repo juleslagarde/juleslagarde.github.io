@@ -16,7 +16,10 @@ jobs:
           token: ${{secrets.TOKEN}}
       
       - name: Prepare directory structure
-        run: mkdir -p out
+        run: |
+          mkdir -p out
+          echo $GITHUB_WORKSPACE
+          echo ${{ github.workspace }}
       
       - name: Clone simple-chrono
         run: |
