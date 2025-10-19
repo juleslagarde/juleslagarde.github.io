@@ -29,12 +29,14 @@ jobs:
       - name: Clone simple-chrono
         run: |
           cd juleslagarde.github.io
+          rm -rf simple-chrono
           git clone --depth 1 https://github.com/juleslagarde/simple-chrono.git
           rm -rf simple-chrono/.git
 
       - name: Clone web utils
         run: |
           cd juleslagarde.github.io
+          rm -rf utils
           git clone --depth 1 https://github.com/juleslagarde/singlefile-webutils.git utils
           rm -rf utils/.git
   
